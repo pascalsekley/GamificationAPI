@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: RFPS API
+  title: Gamification API
   description: Move your app forward with the RFPS API.
   version: "1.0.0"
 # the domain of the service
@@ -134,36 +134,47 @@ paths:
       produces:
         - application/json
       tags:
-        - PointScale
+        - PointScales
       responses:
         200:
-          description: OK, an array of point scale.
+          description: OK, an array of point scales.
           schema:
             type: array
             items:
-              $ref: '#/definitions/PointScaleGet'
+              $ref: '#/definitions/PointScaleOutputDTO'
         500:
           description: If database isn't reachable.
           
     post:
       description: Create a new point scale.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: badge
+          description: PointScale object that needs to be added to the database.
+          required: true
+          schema:
+              $ref: '#/definitions/PointScaleInputDTO'
       responses:
         201:
           description: Created, returns the URL to access the new point scale.
           schema:
-            $ref: '#/definitions/PointScalePost'
+            $ref: '#/definitions/LocationPointScale'
         422:
           description: Unprocessable entity,
                        if mandatory fields aren't provided,
-                       if mandatory fields don't contain at least 1 character,
-                       if mandatory fields contain more than 45 characters,
+                       if mandatory fields provided are empty or contain only spaces,
+                       if mandatory fields contain more than 80 characters,
                        if point scale name provided already exists.
         500:
           description: If database isn't reachable.
           
-  /pointScale/{id}:
+  /pointScales/{id}:
     get:
       description: Returns the point scale which has the specified id.
+      produces:
+        - application/json
       parameters:
         - name: id
           in: path
@@ -174,7 +185,7 @@ paths:
         200:
           description: OK
           schema:
-            $ref: '#/definitions/PointScaleGet'
+            $ref: '#/definitions/PointScaleOutputDTO'
         404:
           description: Not found, if id provided don't exist.
         500:
@@ -182,12 +193,21 @@ paths:
           
     put:
       description: Modify completely the existing point scale which has the specified id.
+      consumes:
+        - application/json
       parameters:
         - name: id
           in: path
           description: The id of the point scale to modify.
           required: true
           type: string
+        - name: pointScale
+          in: body
+          description: PointScale to be updated
+          required: true
+          schema:
+              $ref: '#/definitions/PointScaleInputDTO'
+              
       responses:
         204:
           description: No content, if success.
@@ -196,23 +216,14 @@ paths:
         500:
           description: If database isn't reachable.
           schema:
-            $ref: '#/definitions/PointScalePost'
+            $ref: '#/definitions/PointScaleInputDTO'
+        422:
+          description: Unprocessable entity,
+                       if mandatory fields aren't provided,
+                       if mandatory fields provided are empty or contain only spaces,
+                       if name provided contains more than 80 characters,
+                       if pointScale name provided already exists.
           
-    patch:
-      description: Update partially or completely an existing point scale which has the specified id.
-      parameters:
-        - name: id
-          in: path
-          description: The id of the point scale to update.
-          required: true
-          type: string
-      responses:
-        204:
-          description: No content
-        404:
-          description: Not found, if id provided don't exist.
-        500:
-          description: If database isn't reachable.
 
     delete:
       description: Delete the point scale which has the specified id.
@@ -229,7 +240,149 @@ paths:
           description: Not found, if id provided don't exist.
         500:
           description: If database isn't reachable.
-            
+  
+  
+  /applications:
+    get:
+      description: 
+        The Applications endpoint returns information about an application which are available. The response includes the id, the name, the description. This response is a list of applications sorted by the id.
+      produces:
+        - application/json
+      tags:
+        - Applications
+      responses:
+        200:
+          description: OK, an array of application.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ApplicationOutputDTO'
+        500:
+          description: If database isn't reachable.
+          
+    post:
+      description: Create a new application.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: application
+          description: Application object that needs to be added to the database.
+          required: true
+          schema:
+              $ref: '#/definitions/ApplicationInputDTO'
+      responses:
+        201:
+          description: Created, returns the URL to access the new application.
+          schema:
+            $ref: '#/definitions/LocationApplication'
+        422:
+          description: Unprocessable entity,
+                       if mandatory fields aren't provided,
+                       if mandatory fields provided are empty or contain only spaces,
+                       if mandatory fields contain more than 80 characters,
+                       if application name provided already exists.
+        500:
+          description: If database isn't reachable.
+          
+  /applications/{id}:
+    get:
+      description: Returns the application which has the specified id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: The id of the desired application.
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ApplicationOutputDTO'
+        404:
+          description: Not found, if id provided don't exist.
+        500:
+          description: If database isn't reachable.
+          
+    put:
+      description: Modify completely the existing application which has the specified id.
+      consumes:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: The id of the application to modify.
+          required: true
+          type: string
+        - name: application
+          in: body
+          description: Application to be updated
+          required: true
+          schema:
+              $ref: '#/definitions/ApplicationInputDTO'
+              
+      responses:
+        204:
+          description: No content, if success.
+        404:
+          description: Not found, if id provided don't exist.
+        500:
+          description: If database isn't reachable.
+          schema:
+            $ref: '#/definitions/ApplicationInputDTO'
+        422:
+          description: Unprocessable entity,
+                       if mandatory fields aren't provided,
+                       if mandatory fields provided are empty or contain only spaces,
+                       if name provided contains more than 80 characters,
+                       if application name provided already exists.
+          
+
+    delete:
+      description: Delete the application which has the specified id.
+      parameters:
+        - name: id
+          in: path
+          description: The id of the desired application.
+          required: true
+          type: string
+      responses:
+        204:
+          description: No content, if success.
+        404:
+          description: Not found, if id provided don't exist.
+        500:
+          description: If database isn't reachable.
+          
+  /events:
+    post:
+      description: Create a new even in an application.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: event
+          description: Event object that needs to be added to an application in a database.
+          required: true
+          schema:
+              $ref: '#/definitions/EventInputDTO'
+      responses:
+        201:
+          description: Created, returns the URL to access the new event.
+          schema:
+            $ref: '#/definitions/LocationEvent'
+        422:
+          description: Unprocessable entity,
+                       if mandatory fields aren't provided,
+                       if mandatory fields provided are empty or contain only spaces,
+                       if mandatory fields contain more than 80 characters,
+                       if application name provided already exists.
+        500:
+          description: If database isn't reachable.
+          
+          
 definitions:
   BadgeOutputDTO:
     type: object
@@ -271,8 +424,9 @@ definitions:
           description: Unique URL to access the new object created.
           
         
-  PointScaleGet:
+  PointScaleOutputDTO:
     type: object
+    required: [name,description, coefficient]
     properties:
       pointScale_id:
         type: string
@@ -283,14 +437,88 @@ definitions:
       description:
         type: string
         description: Description of point scale.
-      coeffcient:
+      coefficient:
         type: integer
         description: Coeffcient of the point scale.
         
-  PointScalePost:
-    type: string
+  PointScaleInputDTO:
+    type: object
+    required: [name,description, coefficient]
     properties:
-      url:
+      name:
         type: string
-        description: Unique URL to access the resource.
+        description: Display name of point scale.
+      description:
+        type: string
+        description: Description of point scale.
+      coefficient:
+        type: integer
+        description: Coeffcient of the point scale.
+  
+  LocationPointScale:
+    type: string 
+    required: [locationPointScale]
+    properties:
+      locationPointScale:
+        type: string
+        description: Unique URL to access the new object created.
+        
+  ApplicationOutputDTO:
+    type: object
+    required: [application_id, name, description]
+    properties:
+      application_id:
+        type: string
+        description: Unique identifier representing a specific application.
+      name:
+        type: string
+        description: Display name of the application.
+      description:
+        type: string
+        description: Description of the application.
+        
+  ApplicationInputDTO:
+    type: object
+    required: [name,description]
+    properties:
+      name:
+        type: string
+        description: Display name of the application.
+      description:
+        type: string
+        description: Description of the application.
+
+  LocationApplication:
+      type: string
+      required: [locationApplication]
+      properties:
+        locationApplication:
+          type: string
+          description: Unique URL to access the new object created.
+          
+  EventInputDTO:
+    type: object
+    required: [name,description,score]
+    properties:
+      name:
+        type: string
+        description: Display name of the application.
+      description:
+        type: string
+        description: Description of the application.
+      score:
+        type: integer
+        description: Description of the event
+      applicationType:
+        type: string
+        description: Description of the type of the application using the gamification platform
+
+  LocationEvent:
+      type: string
+      required: [locationEvent]
+      properties:
+        locationEvent:
+          type: string
+          description: Unique URL to access the new object created.
+  
         

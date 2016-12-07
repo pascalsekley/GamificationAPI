@@ -36,6 +36,8 @@ public class BadgesEndpoint implements BadgesApi{
     private final HttpServletRequest request;
     private final BadgeRepository badgeRepository;
     
+    
+    
     @Autowired
     BadgesEndpoint(HttpServletRequest request, BadgeRepository badgeRepository){
         this.request = request;

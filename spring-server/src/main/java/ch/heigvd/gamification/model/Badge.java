@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * 
@@ -23,6 +24,12 @@ public class Badge implements Serializable {
     private String name;
     private String image;
     private String description;
+    
+    @ManyToOne
+    private Application application;
+    
+    @ManyToOne
+    private Event event;
 
     public Badge(){}
 
@@ -48,6 +55,14 @@ public class Badge implements Serializable {
     public String getDescription() {
         return description;
     }
+    
+    public Application getApplication(){
+        return application;
+    }
+    
+    public Event getEvent(){
+        return event;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -59,6 +74,14 @@ public class Badge implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public void setApplication(Application application){
+        this.application = application;
+    }
+    
+    public void setEvent(Event event){
+        this.event = event;
     }
 
 }
