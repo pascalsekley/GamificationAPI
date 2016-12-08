@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * LocationPointScale
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-05T20:36:58.390+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-08T00:27:22.592+01:00")
 
 public class LocationPointScale   {
   private String locationPointScale = null;

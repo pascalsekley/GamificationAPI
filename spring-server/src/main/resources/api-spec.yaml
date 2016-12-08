@@ -42,6 +42,11 @@ paths:
           required: true
           schema:
               $ref: '#/definitions/BadgeInputDTO'
+        - name: token
+          in: header
+          type: integer
+          description: The application for which the badge belong
+          required: true
       responses:
         201:
           description: Created, returns the URL to access the new badge.
@@ -356,6 +361,31 @@ paths:
         500:
           description: If database isn't reachable.
           
+  /applications/{id}/badges:
+    get:
+      description: Returns all the badges of the application having the specified id.
+      produces:
+        - application/json
+      tags:
+        - Applications
+      parameters:
+        - name: id
+          in: path
+          description: The id of the desired application.
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK Array of badges
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BadgeOutputDTO'
+        404:
+          description: Not found, if id provided don't exist.
+        500:
+          description: If database isn't reachable.
+          
   /events:
     post:
       description: Create a new even in an application.
@@ -379,6 +409,24 @@ paths:
                        if mandatory fields provided are empty or contain only spaces,
                        if mandatory fields contain more than 80 characters,
                        if application name provided already exists.
+        500:
+          description: If database isn't reachable.
+          
+  /users:
+    get:
+      description: 
+        The Applications endpoint returns information about an users which are available.
+      produces:
+        - application/json
+      tags:
+        - Applications
+      responses:
+        200:
+          description: OK, an array of users.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserOutputDTO'
         500:
           description: If database isn't reachable.
           
@@ -498,7 +546,7 @@ definitions:
           
   EventInputDTO:
     type: object
-    required: [name,description,score]
+    required: [name,description,applicationId,userId]
     properties:
       name:
         type: string
@@ -506,12 +554,12 @@ definitions:
       description:
         type: string
         description: Description of the application.
-      score:
+      applicationId:
         type: integer
-        description: Description of the event
-      applicationType:
-        type: string
-        description: Description of the type of the application using the gamification platform
+        description: Id of the type of the application using the gamification platform
+      userId:
+        type: integer
+        description: Id of the user using the platform
 
   LocationEvent:
       type: string
@@ -520,5 +568,19 @@ definitions:
         locationEvent:
           type: string
           description: Unique URL to access the new object created.
+          
+  UserOutputDTO:
+    type: object
+    required: [user_id, userIdApp, appId]
+    properties:
+      user_id:
+        type: integer
+        description: Unique identifier representing a specific user.
+      userIdApp:
+        type: integer
+        description: Unique identifier of a user in the gamification platform.
+      appId:
+        type: integer
+        description: Unique identifier of the application
   
         

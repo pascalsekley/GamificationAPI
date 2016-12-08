@@ -8,8 +8,10 @@ package ch.heigvd.gamification.api;
 
 import ch.heigvd.gamification.api.dto.ApplicationInputDTO;
 import ch.heigvd.gamification.api.dto.ApplicationOutputDTO;
+import ch.heigvd.gamification.api.dto.BadgeOutputDTO;
 import ch.heigvd.gamification.api.dto.LocationApplication;
 import ch.heigvd.gamification.model.Application;
+import ch.heigvd.gamification.model.Badge;
 import ch.heigvd.gamification.services.ApplicationRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,6 +83,23 @@ public class ApplicationsEndpoint implements ApplicationsApi{
         
         return new ResponseEntity<>(applicationDTO, HttpStatus.OK);
     }
+    
+    
+    @Override
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/badges", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BadgeOutputDTO>> applicationsIdBadgesGet(@PathVariable String id) {
+        Application application = applicationRepository.findOne(Long.valueOf(id));
+         List<Badge> listBadges = application.getBadges();
+         List<BadgeOutputDTO> badgesDTO = new ArrayList<>();
+        for (int i=0; i<listBadges.size(); i++){
+            badgesDTO.add(i, toDTO(listBadges.get(i)));
+        }
+        return new ResponseEntity<>(badgesDTO, HttpStatus.OK); 
+        
+    }
+    
+
+    
 
     @Override
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -101,7 +121,7 @@ public class ApplicationsEndpoint implements ApplicationsApi{
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<LocationApplication> applicationsPost(ApplicationInputDTO application) {
+    public ResponseEntity<LocationApplication> applicationsPost(@RequestBody ApplicationInputDTO application) {
         
         // TO DO: We've got to check if the app is not in the database before saving
        if(application.getName()==null || application.getDescription()==null){
@@ -124,6 +144,15 @@ public class ApplicationsEndpoint implements ApplicationsApi{
         dto.setApplicationId(String.valueOf(application.getId()));
         dto.setName(application.getName());
         dto.setDescription(application.getDescription());
+        return dto;
+    }
+    
+    public BadgeOutputDTO toDTO(Badge badge){
+        BadgeOutputDTO dto = new BadgeOutputDTO();
+        dto.setBadgeId(String.valueOf(badge.getId()));
+        dto.setName(badge.getName());
+        dto.setDescription(badge.getDescription());
+        dto.setImageURL(badge.getImage());
         return dto;
     }
     

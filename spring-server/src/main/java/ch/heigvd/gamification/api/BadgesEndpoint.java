@@ -9,7 +9,9 @@ package ch.heigvd.gamification.api;
 import ch.heigvd.gamification.api.dto.BadgeInputDTO;
 import ch.heigvd.gamification.api.dto.BadgeOutputDTO;
 import ch.heigvd.gamification.api.dto.LocationBadge;
+import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.model.Badge;
+import ch.heigvd.gamification.services.ApplicationRepository;
 import ch.heigvd.gamification.services.BadgeRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,18 +38,21 @@ public class BadgesEndpoint implements BadgesApi{
     
     private final HttpServletRequest request;
     private final BadgeRepository badgeRepository;
+    private final ApplicationRepository applicationRepository;
     
     
     
     @Autowired
-    BadgesEndpoint(HttpServletRequest request, BadgeRepository badgeRepository){
+    BadgesEndpoint(HttpServletRequest request, BadgeRepository badgeRepository, ApplicationRepository applicationRepository){
         this.request = request;
         this.badgeRepository = badgeRepository;
+        this.applicationRepository = applicationRepository;
     }
 
     @Override
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<BadgeOutputDTO>> badgesGet() {
+        
         List<Badge> badges = this.badgeRepository.findAll();
         if(badges.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -105,16 +111,20 @@ public class BadgesEndpoint implements BadgesApi{
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<LocationBadge> badgesPost(@RequestBody BadgeInputDTO badge) {
+    public ResponseEntity<LocationBadge> badgesPost(@RequestBody BadgeInputDTO badge, @RequestHeader Integer token) {
         
+        Application application = applicationRepository.findOne(new Long(token));
         // TO DO: We've got to check if the badge is not in the database before saving
-       if(badge.getName()==null || badge.getDescription()==null || badge.getImageURL()==null){
+       if(badge.getName()==null || badge.getDescription()==null || badge.getImageURL()==null || application==null){
            
            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
        }
         
         Badge newBadge = fromDTO(badge);
         newBadge = badgeRepository.save(newBadge);
+        application.addBadges(newBadge);
+        newBadge.setApplication(application);
+        
         Long newId = newBadge.getId();
         String location =request.getRequestURL() +"/"+newId;
         
@@ -137,5 +147,7 @@ public class BadgesEndpoint implements BadgesApi{
     public Badge fromDTO(BadgeInputDTO badgeInputDTO){
         return new Badge(badgeInputDTO.getName(), badgeInputDTO.getImageURL(), badgeInputDTO.getDescription());
     }
+
+
 
 }

@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-05T20:36:58.390+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-08T00:27:22.592+01:00")
 
 @Api(value = "badges", description = "the badges API")
 public interface BadgesApi {
@@ -92,6 +92,10 @@ public interface BadgesApi {
     ResponseEntity<LocationBadge> badgesPost(
 
 @ApiParam(value = "Badge object that needs to be added to the database." ,required=true ) @RequestBody BadgeInputDTO badge
+
+,
+@ApiParam(value = "The application for which the badge belong" ,required=true ) @RequestHeader(value="token", required=true) Integer token
+
 
 );
 

@@ -1,6 +1,7 @@
 package ch.heigvd.gamification.api;
 
 import ch.heigvd.gamification.api.dto.ApplicationOutputDTO;
+import ch.heigvd.gamification.api.dto.BadgeOutputDTO;
 import ch.heigvd.gamification.api.dto.ApplicationInputDTO;
 import ch.heigvd.gamification.api.dto.LocationApplication;
 
@@ -17,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-05T20:36:58.390+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-08T00:27:22.592+01:00")
 
 @Api(value = "applications", description = "the applications API")
 public interface ApplicationsApi {
@@ -30,6 +31,21 @@ public interface ApplicationsApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<ApplicationOutputDTO>> applicationsGet();
+
+
+    @ApiOperation(value = "", notes = "Returns all the badges of the application having the specified id.", response = BadgeOutputDTO.class, responseContainer = "List", tags={ "Applications", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "OK Array of badges", response = BadgeOutputDTO.class),
+        @ApiResponse(code = 404, message = "Not found, if id provided don't exist.", response = BadgeOutputDTO.class),
+        @ApiResponse(code = 500, message = "If database isn't reachable.", response = BadgeOutputDTO.class) })
+    @RequestMapping(value = "/applications/{id}/badges",
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<List<BadgeOutputDTO>> applicationsIdBadgesGet(
+@ApiParam(value = "The id of the desired application.",required=true ) @PathVariable("id") String id
+
+
+);
 
 
     @ApiOperation(value = "", notes = "Delete the application which has the specified id.", response = Void.class, tags={  })

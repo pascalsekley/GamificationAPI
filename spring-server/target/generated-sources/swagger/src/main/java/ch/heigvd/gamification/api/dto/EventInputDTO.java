@@ -12,16 +12,16 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * EventInputDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-05T20:36:58.390+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-08T00:27:22.592+01:00")
 
 public class EventInputDTO   {
   private String name = null;
 
   private String description = null;
 
-  private Integer score = null;
+  private Integer applicationId = null;
 
-  private String applicationType = null;
+  private Integer userId = null;
 
   public EventInputDTO name(String name) {
     this.name = name;
@@ -59,40 +59,40 @@ public class EventInputDTO   {
     this.description = description;
   }
 
-  public EventInputDTO score(Integer score) {
-    this.score = score;
+  public EventInputDTO applicationId(Integer applicationId) {
+    this.applicationId = applicationId;
     return this;
   }
 
    /**
-   * Description of the event
-   * @return score
+   * Id of the type of the application using the gamification platform
+   * @return applicationId
   **/
-  @ApiModelProperty(required = true, value = "Description of the event")
-  public Integer getScore() {
-    return score;
+  @ApiModelProperty(required = true, value = "Id of the type of the application using the gamification platform")
+  public Integer getApplicationId() {
+    return applicationId;
   }
 
-  public void setScore(Integer score) {
-    this.score = score;
+  public void setApplicationId(Integer applicationId) {
+    this.applicationId = applicationId;
   }
 
-  public EventInputDTO applicationType(String applicationType) {
-    this.applicationType = applicationType;
+  public EventInputDTO userId(Integer userId) {
+    this.userId = userId;
     return this;
   }
 
    /**
-   * Description of the type of the application using the gamification platform
-   * @return applicationType
+   * Id of the user using the platform
+   * @return userId
   **/
-  @ApiModelProperty(value = "Description of the type of the application using the gamification platform")
-  public String getApplicationType() {
-    return applicationType;
+  @ApiModelProperty(required = true, value = "Id of the user using the platform")
+  public Integer getUserId() {
+    return userId;
   }
 
-  public void setApplicationType(String applicationType) {
-    this.applicationType = applicationType;
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 
 
@@ -107,13 +107,13 @@ public class EventInputDTO   {
     EventInputDTO eventInputDTO = (EventInputDTO) o;
     return Objects.equals(this.name, eventInputDTO.name) &&
         Objects.equals(this.description, eventInputDTO.description) &&
-        Objects.equals(this.score, eventInputDTO.score) &&
-        Objects.equals(this.applicationType, eventInputDTO.applicationType);
+        Objects.equals(this.applicationId, eventInputDTO.applicationId) &&
+        Objects.equals(this.userId, eventInputDTO.userId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, score, applicationType);
+    return Objects.hash(name, description, applicationId, userId);
   }
 
   @Override
@@ -123,8 +123,8 @@ public class EventInputDTO   {
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    score: ").append(toIndentedString(score)).append("\n");
-    sb.append("    applicationType: ").append(toIndentedString(applicationType)).append("\n");
+    sb.append("    applicationId: ").append(toIndentedString(applicationId)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

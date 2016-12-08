@@ -9,10 +9,12 @@ package ch.heigvd.gamification.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -26,23 +28,38 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    private Long userIdApp;
+    private Long appId;
     
-    @OneToMany (mappedBy = "user")
-    private List<PointsAward> listPointAwards = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Award> listAwards; //= new ArrayList<>();
+    
+    @ManyToOne
+    private Application application;
     
     
-    public void User(){}
+    public User(){}
+    
+    public User(Application application){
+        this.application = application;
+        listAwards = new ArrayList<>();
+    }
     
     
-   
-    
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public Long getuserIdApp(){
+        return userIdApp;
+    }
+    
+    public Long getAppId(){
+        return appId;
     }
 
 }

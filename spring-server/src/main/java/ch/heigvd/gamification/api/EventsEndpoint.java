@@ -8,6 +8,7 @@ package ch.heigvd.gamification.api;
 
 import ch.heigvd.gamification.api.dto.EventInputDTO;
 import ch.heigvd.gamification.api.dto.LocationEvent;
+import ch.heigvd.gamification.model.Application;
 import ch.heigvd.gamification.model.Event;
 import ch.heigvd.gamification.services.ApplicationRepository;
 import ch.heigvd.gamification.services.EventRepository;
@@ -40,14 +41,17 @@ public class EventsEndpoint implements EventsApi{
     @Override
     public ResponseEntity<LocationEvent> eventsPost(EventInputDTO event) {
         Event newEvent = new Event();
+        Application applicationAimed = applicationRepository.findOne(new Long(event.getApplicationId()));
         
         newEvent.setName(event.getName());
         newEvent.setDescription(event.getDescription());
-        //newEvent.setScore(event.getScore());
-        newEvent.setApplicationType(event.getApplicationType());
-        
+        newEvent.setUserId(new Long (event.getUserId()));
+        newEvent.setApplicationId(new Long (event.getApplicationId()));
+        //newEvent.setApplication(applicationRepository.findByName(event.getApplicationType()));
+        newEvent.setApplication(applicationAimed);
+        applicationAimed.addEvent(newEvent);
         eventRepository.save(newEvent);
-        applicationRepository.findByName(event.getApplicationType()).addEvent(newEvent);
+        //applicationRepository.findByName(event.getApplicationType()).addEvent(newEvent);
         
         String location =request.getRequestURL()+"/";
         HttpHeaders headers = new HttpHeaders();

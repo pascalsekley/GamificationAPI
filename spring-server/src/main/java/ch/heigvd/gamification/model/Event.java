@@ -30,8 +30,8 @@ public class Event implements Serializable{
     
     private String name;
     private String description;
-    private String applicationType;
-   // private Long score;
+    private Long appId;
+    private Long userId;
     
     
     
@@ -61,32 +61,10 @@ public class Event implements Serializable{
     {
         return description;
     }
-    
-    public String getApplicationType(){
-        return applicationType;
-    }
-    
+
     public void setDescription(String description)
     {
         this.description = description;
-    }
-
-//    public long getScore()
-//    {
-//        return score;
-//    }
-//    
-//     public Application getApplication(){
-//        return application;
-//    }
-//
-//    public void setScore(long score)
-//    {
-//        this.score = score;
-//    }  
-    
-    public void setApplicationType(String applicationType){
-        this.applicationType = applicationType;
     }
     
     public List<Badge> getBadges(){
@@ -103,6 +81,22 @@ public class Event implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public Long getApplicationId(){
+        return appId;
+    }
+    
+    public void setApplicationId(Long applicationId){
+        this.appId = applicationId;
+    }
+    
+    public Long getUserId(){
+        return userId;
+    }
+    
+    public void setUserId(Long userId){
+        this.userId = userId;
     }
     
     public void setApplication(Application application){

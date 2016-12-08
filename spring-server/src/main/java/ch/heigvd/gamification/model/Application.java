@@ -81,4 +81,8 @@ public class Application implements Serializable {
     public void addEvent(Event newEvent){
         this.listEvents.add(newEvent);
     }
+    
+    public void addBadges(Badge badge){
+        this.listBadges.add(badge);
+    }
 }
