@@ -111,19 +111,19 @@ public class BadgesEndpoint implements BadgesApi{
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<LocationBadge> badgesPost(@RequestBody BadgeInputDTO badge, @RequestHeader Integer token) {
+    public ResponseEntity<LocationBadge> badgesPost(@RequestBody BadgeInputDTO badge, @RequestHeader Long token) {
         
-        Application application = applicationRepository.findOne(new Long(token));
+        Application application = applicationRepository.findOne(token); 
+
         // TO DO: We've got to check if the badge is not in the database before saving
-       if(badge.getName()==null || badge.getDescription()==null || badge.getImageURL()==null || application==null){
+       if(badge.getName()==null || badge.getDescription()==null || badge.getImageURL()==null /*|| application==null*/){
            
            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
        }
         
         Badge newBadge = fromDTO(badge);
-        newBadge = badgeRepository.save(newBadge);
-        application.addBadges(newBadge);
         newBadge.setApplication(application);
+        newBadge = badgeRepository.save(newBadge);        
         
         Long newId = newBadge.getId();
         String location =request.getRequestURL() +"/"+newId;
@@ -148,6 +148,6 @@ public class BadgesEndpoint implements BadgesApi{
         return new Badge(badgeInputDTO.getName(), badgeInputDTO.getImageURL(), badgeInputDTO.getDescription());
     }
 
-
+    
 
 }

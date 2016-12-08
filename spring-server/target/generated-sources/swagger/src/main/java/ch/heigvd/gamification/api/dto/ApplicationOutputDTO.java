@@ -12,16 +12,16 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * ApplicationOutputDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-08T00:27:22.592+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-08T22:46:01.300+01:00")
 
 public class ApplicationOutputDTO   {
-  private String applicationId = null;
+  private Long applicationId = null;
 
   private String name = null;
 
   private String description = null;
 
-  public ApplicationOutputDTO applicationId(String applicationId) {
+  public ApplicationOutputDTO applicationId(Long applicationId) {
     this.applicationId = applicationId;
     return this;
   }
@@ -31,11 +31,11 @@ public class ApplicationOutputDTO   {
    * @return applicationId
   **/
   @ApiModelProperty(required = true, value = "Unique identifier representing a specific application.")
-  public String getApplicationId() {
+  public Long getApplicationId() {
     return applicationId;
   }
 
-  public void setApplicationId(String applicationId) {
+  public void setApplicationId(Long applicationId) {
     this.applicationId = applicationId;
   }
 

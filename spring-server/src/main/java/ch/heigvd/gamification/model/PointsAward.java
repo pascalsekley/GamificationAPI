@@ -21,14 +21,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class PointsAward extends Award implements Serializable {
     
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-    
     private long score;
         
-//    @ManyToOne
-//    private User user;
     
     @ManyToOne
     private PointScale pointScale;

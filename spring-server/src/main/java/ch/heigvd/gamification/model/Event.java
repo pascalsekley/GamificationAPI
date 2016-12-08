@@ -30,21 +30,24 @@ public class Event implements Serializable{
     
     private String name;
     private String description;
-    private Long appId;
-    private Long userId;
-    
-    
-    
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    private List<Badge> listBadges;
+    //private Long appId;
+    private Long userAppId;
     
     @ManyToOne
     private Application application;
     
+    @ManyToOne
+    private User user;
     
     
-    public Event(){
-        this.listBadges = new ArrayList<>();
+    
+    public Event(){}
+    
+    public Event(User user, Application application, String name, Long userAppId){
+        this.user = user;
+        this.application = application;
+        this.name = name;
+        this.userAppId = userAppId;
     }
     
     public String getName()
@@ -67,14 +70,6 @@ public class Event implements Serializable{
         this.description = description;
     }
     
-    public List<Badge> getBadges(){
-        return listBadges;
-    }
-    
-    public void addBadges(Badge badge){
-        listBadges.add(badge);
-    }
-
     public Long getId() {
         return id;
     }
@@ -83,23 +78,35 @@ public class Event implements Serializable{
         this.id = id;
     }
     
-    public Long getApplicationId(){
-        return appId;
+    public User getUser() {
+        return user;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+}
     
-    public void setApplicationId(Long applicationId){
-        this.appId = applicationId;
-    }
-    
-    public Long getUserId(){
-        return userId;
-    }
-    
-    public void setUserId(Long userId){
-        this.userId = userId;
+//    public Long getApplicationId(){
+//        return appId;
+//    }
+//    
+//    public void setApplicationId(Long applicationId){
+//        this.appId = applicationId;
+//    }
+//    
+//    public Long getUserId(){
+//        return userId;
+//    }
+//    
+    public void setUserAppId(Long userAppId){
+        this.userAppId = userAppId;
     }
     
     public void setApplication(Application application){
         this.application = application;
+    }
+    
+    public Application getApplication(){
+        return application;
     }
 }

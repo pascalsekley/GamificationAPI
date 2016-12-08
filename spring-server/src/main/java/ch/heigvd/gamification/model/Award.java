@@ -2,12 +2,17 @@
 package ch.heigvd.gamification.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -23,7 +28,11 @@ public abstract class Award implements Serializable {
     private Long id;
      
     private String reason;
-    private Timestamp timestamp; // new Timestamp(System.currentTimeMillis());
+    
+    @Basic(optional = false)
+    @Column(name = "LastTouched", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp; 
     
     @ManyToOne
     private User user;
@@ -31,7 +40,7 @@ public abstract class Award implements Serializable {
     public Award() {
     }
 
-    public Award(String reason, Timestamp timestamp, User appUser) {
+    public Award(String reason, Date timestamp, User appUser) {
         this.reason = reason;
         this.timestamp = timestamp;
         this.user = appUser;
@@ -41,7 +50,7 @@ public abstract class Award implements Serializable {
         return reason;
     }
 
-    public Timestamp getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 

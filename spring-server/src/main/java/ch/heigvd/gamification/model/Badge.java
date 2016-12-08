@@ -3,11 +3,14 @@
 package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * 
@@ -25,11 +28,14 @@ public class Badge implements Serializable {
     private String image;
     private String description;
     
+    @OneToMany(mappedBy = "badge", cascade = CascadeType.ALL)
+    private List<Rule> listRules;
+    
     @ManyToOne
     private Application application;
     
-    @ManyToOne
-    private Event event;
+//    @ManyToOne
+//    private Event event;
 
     public Badge(){}
 
@@ -60,9 +66,9 @@ public class Badge implements Serializable {
         return application;
     }
     
-    public Event getEvent(){
-        return event;
-    }
+//    public Event getEvent(){
+//        return event;
+//    }
 
     public void setName(String name) {
         this.name = name;
@@ -80,8 +86,8 @@ public class Badge implements Serializable {
         this.application = application;
     }
     
-    public void setEvent(Event event){
-        this.event = event;
-    }
+//    public void setEvent(Event event){
+//        this.event = event;
+//    }
 
 }

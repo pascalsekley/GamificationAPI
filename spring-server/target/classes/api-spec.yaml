@@ -45,6 +45,7 @@ paths:
         - name: token
           in: header
           type: integer
+          format: int64
           description: The application for which the badge belong
           required: true
       responses:
@@ -373,7 +374,8 @@ paths:
           in: path
           description: The id of the desired application.
           required: true
-          type: string
+          type: integer
+          format: int64
       responses:
         200:
           description: OK Array of badges
@@ -398,6 +400,7 @@ paths:
           required: true
           schema:
               $ref: '#/definitions/EventInputDTO'
+              
       responses:
         201:
           description: Created, returns the URL to access the new event.
@@ -430,6 +433,130 @@ paths:
         500:
           description: If database isn't reachable.
           
+  /rules:
+    get:
+      description: 
+        The rules of the gamification platform
+      produces:
+        - application/json
+      tags:
+        - Rules
+      responses:
+        200:
+          description: OK, an array of rules.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RuleOutputDTO'
+        500:
+          description: If database isn't reachable.
+              
+    post:
+      description: Create a new rule.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: rule
+          description: Rule object that needs to be added to the database.
+          required: true
+          schema:
+              $ref: '#/definitions/RuleInputDTO'
+        - name: token
+          in: header
+          type: integer
+          format: int64
+          description: The application for which the rule belongs
+          required: true
+      responses:
+        201:
+          description: Created, returns the URL to access the new rule.
+          schema:
+            $ref: '#/definitions/LocationRule'
+        422:
+          description: Unprocessable entity,
+                       if mandatory fields aren't provided,
+                       if mandatory fields provided are empty or contain only spaces,
+                       if name provided contains more than 80 characters,
+                       if description or imageUrl provided contain more than 255 characters,
+                       if rule name provided already exists.
+        500:
+          description: If database isn't reachable.
+          
+  /rules/{id}:
+    get:
+      description: Returns the rule which has the specified id.
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          format: int64
+          description: The id of the desired rule.
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/RuleOutputDTO'
+        404:
+          description: Not found, if id provided don't exist.
+        500:
+          description: If database isn't reachable.
+          
+    put:
+      description: Modify completely the existing rule which has the specified id.
+      consumes:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: The id of the rule to modify.
+          required: true
+          type: integer
+          format: int64
+        - name: rule
+          in: body
+          description: rule to be updated
+          required: true
+          schema:
+              $ref: '#/definitions/RuleInputDTO'
+          
+      responses:
+        204:
+          description: No content, if success.
+        404:
+          description: Not found, if id provided don't exist.
+        500:
+          description: If database isn't reachable.
+        422:
+          description: Unprocessable entity,
+                       if mandatory fields aren't provided,
+                       if mandatory fields provided are empty or contain only spaces,
+                       if name provided contains more than 80 characters,
+                       if description or imageUrl provided contain more than 255 characters,
+                       if rule name provided already exists.
+          
+
+    delete:
+      description: Delete the rule which has the specified id.
+      parameters:
+        - name: id
+          in: path
+          description: The id of the desired rule.
+          required: true
+          type: integer
+          format: int64
+      responses:
+        204:
+          description: No content, if success.
+        404:
+          description: Not found, if id provided don't exist.
+        500:
+          description: If database isn't reachable.
+          
+          
           
 definitions:
   BadgeOutputDTO:
@@ -451,7 +578,7 @@ definitions:
         
   BadgeInputDTO:
     type: object
-    required: [name,description, imageURL]
+    required: [name,description,imageURL]
     properties:
       name:
         type: string
@@ -461,7 +588,7 @@ definitions:
         description: Description of badge.
       imageURL:
         type: string
-        description: The URL of the image
+        description: The URL of the image          
 
   LocationBadge:
       type: string
@@ -516,7 +643,8 @@ definitions:
     required: [application_id, name, description]
     properties:
       application_id:
-        type: string
+        type: integer
+        format: int64
         description: Unique identifier representing a specific application.
       name:
         type: string
@@ -546,7 +674,7 @@ definitions:
           
   EventInputDTO:
     type: object
-    required: [name,description,applicationId,userId]
+    required: [name,description,applicationId,userAppId]
     properties:
       name:
         type: string
@@ -556,9 +684,11 @@ definitions:
         description: Description of the application.
       applicationId:
         type: integer
+        format: int64
         description: Id of the type of the application using the gamification platform
-      userId:
+      userAppId:
         type: integer
+        format: int64
         description: Id of the user using the platform
 
   LocationEvent:
@@ -583,4 +713,38 @@ definitions:
         type: integer
         description: Unique identifier of the application
   
+  RuleOutputDTO:
+    type: object
+    required: [rule_id, name, description]
+    properties:
+      rule_id:
+        type: string
+        description: Unique identifier representing a specific rule.
+      name:
+        type: string
+        description: Display rule's name.
+      description:
+        type: string
+        description: Description of rule.
+
+        
+  RuleInputDTO:
+    type: object
+    required: [name,description]
+    properties:
+      name:
+        type: string
+        description: Display rule's name.
+      description:
+        type: string
+        description: Description of the rule.        
+
+  LocationRule:
+      type: string
+      required: [locationRule]
+      properties:
+        locationRule:
+          type: string
+          description: Unique URL to access the new object created.
+          
         

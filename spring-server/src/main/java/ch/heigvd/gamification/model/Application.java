@@ -38,6 +38,12 @@ public class Application implements Serializable {
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
     private List<Event> listEvents;
     
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    private List<User> listUsers;
+    
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    private List<Rule> listRules;
+    
     public Application(){}
     
     public Application(String name, String description){
@@ -45,6 +51,7 @@ public class Application implements Serializable {
         this.description = description;
         listBadges = new ArrayList<>();
         listEvents = new ArrayList<>();
+        listUsers = new ArrayList<>();
     }
     
     
@@ -84,5 +91,13 @@ public class Application implements Serializable {
     
     public void addBadges(Badge badge){
         this.listBadges.add(badge);
+    }
+    
+    public void addUsers(User user){
+        this.listUsers.add(user);
+    }
+    
+    public List<User> getListUsers(){
+        return listUsers;
     }
 }

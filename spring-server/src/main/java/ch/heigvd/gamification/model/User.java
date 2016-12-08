@@ -32,7 +32,10 @@ public class User implements Serializable {
     private Long appId;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Award> listAwards; //= new ArrayList<>();
+    private List<Award> listAwards; 
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Event> listEvents;
     
     @ManyToOne
     private Application application;
@@ -43,6 +46,7 @@ public class User implements Serializable {
     public User(Application application){
         this.application = application;
         listAwards = new ArrayList<>();
+        listEvents = new ArrayList<>();
     }
     
     
@@ -54,8 +58,12 @@ public class User implements Serializable {
         this.id = id;
     }
     
-    public Long getuserIdApp(){
+    public Long getUserIdApp(){
         return userIdApp;
+    }
+    
+    public void setUserIdApp(Long userIdApp){
+        this.userIdApp = userIdApp;
     }
     
     public Long getAppId(){

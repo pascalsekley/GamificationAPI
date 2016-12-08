@@ -2,7 +2,7 @@
 package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -18,14 +18,11 @@ public class BadgeAward extends Award implements Serializable{
     @ManyToOne
     private Badge badge;
     
-//    @ManyToOne
-//    private User user;
-    
     
      public BadgeAward() {
     }
    
-     public BadgeAward(Badge badge, String reason, Timestamp timestamp, User appUser){
+     public BadgeAward(Badge badge, String reason, Date timestamp, User appUser){
          super(reason, timestamp, appUser);
          this.badge = badge;
      }

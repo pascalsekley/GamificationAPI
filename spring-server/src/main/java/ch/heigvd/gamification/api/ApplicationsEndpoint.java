@@ -87,8 +87,8 @@ public class ApplicationsEndpoint implements ApplicationsApi{
     
     @Override
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/badges", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<BadgeOutputDTO>> applicationsIdBadgesGet(@PathVariable String id) {
-        Application application = applicationRepository.findOne(Long.valueOf(id));
+    public ResponseEntity<List<BadgeOutputDTO>> applicationsIdBadgesGet(@PathVariable Long id) {
+        Application application = applicationRepository.findOne(id);
          List<Badge> listBadges = application.getBadges();
          List<BadgeOutputDTO> badgesDTO = new ArrayList<>();
         for (int i=0; i<listBadges.size(); i++){
@@ -141,7 +141,7 @@ public class ApplicationsEndpoint implements ApplicationsApi{
     
     public ApplicationOutputDTO toDTO(Application application){
         ApplicationOutputDTO dto = new ApplicationOutputDTO();
-        dto.setApplicationId(String.valueOf(application.getId()));
+        dto.setApplicationId(application.getId());//String.valueOf(application.getId()
         dto.setName(application.getName());
         dto.setDescription(application.getDescription());
         return dto;

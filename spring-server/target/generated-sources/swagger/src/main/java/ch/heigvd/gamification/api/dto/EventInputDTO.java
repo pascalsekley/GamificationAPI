@@ -12,16 +12,16 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * EventInputDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-08T00:27:22.592+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-08T22:46:01.300+01:00")
 
 public class EventInputDTO   {
   private String name = null;
 
   private String description = null;
 
-  private Integer applicationId = null;
+  private Long applicationId = null;
 
-  private Integer userId = null;
+  private Long userAppId = null;
 
   public EventInputDTO name(String name) {
     this.name = name;
@@ -59,7 +59,7 @@ public class EventInputDTO   {
     this.description = description;
   }
 
-  public EventInputDTO applicationId(Integer applicationId) {
+  public EventInputDTO applicationId(Long applicationId) {
     this.applicationId = applicationId;
     return this;
   }
@@ -69,30 +69,30 @@ public class EventInputDTO   {
    * @return applicationId
   **/
   @ApiModelProperty(required = true, value = "Id of the type of the application using the gamification platform")
-  public Integer getApplicationId() {
+  public Long getApplicationId() {
     return applicationId;
   }
 
-  public void setApplicationId(Integer applicationId) {
+  public void setApplicationId(Long applicationId) {
     this.applicationId = applicationId;
   }
 
-  public EventInputDTO userId(Integer userId) {
-    this.userId = userId;
+  public EventInputDTO userAppId(Long userAppId) {
+    this.userAppId = userAppId;
     return this;
   }
 
    /**
    * Id of the user using the platform
-   * @return userId
+   * @return userAppId
   **/
   @ApiModelProperty(required = true, value = "Id of the user using the platform")
-  public Integer getUserId() {
-    return userId;
+  public Long getUserAppId() {
+    return userAppId;
   }
 
-  public void setUserId(Integer userId) {
-    this.userId = userId;
+  public void setUserAppId(Long userAppId) {
+    this.userAppId = userAppId;
   }
 
 
@@ -108,12 +108,12 @@ public class EventInputDTO   {
     return Objects.equals(this.name, eventInputDTO.name) &&
         Objects.equals(this.description, eventInputDTO.description) &&
         Objects.equals(this.applicationId, eventInputDTO.applicationId) &&
-        Objects.equals(this.userId, eventInputDTO.userId);
+        Objects.equals(this.userAppId, eventInputDTO.userAppId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, applicationId, userId);
+    return Objects.hash(name, description, applicationId, userAppId);
   }
 
   @Override
@@ -124,7 +124,7 @@ public class EventInputDTO   {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    applicationId: ").append(toIndentedString(applicationId)).append("\n");
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    userAppId: ").append(toIndentedString(userAppId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
