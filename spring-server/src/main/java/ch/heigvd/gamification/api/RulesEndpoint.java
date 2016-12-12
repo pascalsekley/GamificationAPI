@@ -10,6 +10,8 @@ import ch.heigvd.gamification.api.dto.LocationRule;
 import ch.heigvd.gamification.api.dto.RuleInputDTO;
 import ch.heigvd.gamification.api.dto.RuleOutputDTO;
 import ch.heigvd.gamification.model.Application;
+import ch.heigvd.gamification.model.Badge;
+import ch.heigvd.gamification.model.PointScale;
 import ch.heigvd.gamification.model.Rule;
 import ch.heigvd.gamification.services.ApplicationRepository;
 import ch.heigvd.gamification.services.BadgeRepository;
@@ -89,22 +91,31 @@ public class RulesEndpoint implements RulesApi{
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<LocationRule> rulesPost(@RequestBody RuleInputDTO rule, @RequestHeader Long token) {
         
-        // Let's find the target application
+        // Let's find the target application the badge and the pointscale
         Application targetApplication = applicationRepository.findOne(token);
+        Badge targetBadge = badgeRepository.findOne(rule.getBadgeId());
+        PointScale targetPointScale = pointScaleRepository.findOne(rule.getPointScaleId());
         
-        // If that application exist
-        if(targetApplication == null){
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-        else{
-            
-            
-            String location = request.getRequestURL() + "/";
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Location", location);
-            return new ResponseEntity<>(headers, HttpStatus.CREATED);
-        }
-               
+        // If that rule exist
+        //if (ruleRepository.findByName(rule.getRuleName()) != null) {
+            if (targetApplication != null) {
+                if (targetBadge != null || targetPointScale != null) {
+
+                    Rule newRule = new Rule(rule.getRuleName(), targetApplication, targetBadge, targetPointScale);
+                    newRule.setPoints(rule.getPoints());
+                    ruleRepository.save(newRule);
+                    
+                    String location = request.getRequestURL() + "/" + newRule.getId();
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.add("Location", location);
+                    return new ResponseEntity<>(headers, HttpStatus.CREATED);
+                }
+
+            }
+        //}
+
+        return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+
     }
 
 }

@@ -15,6 +15,7 @@ import ch.heigvd.gamification.services.ApplicationRepository;
 import ch.heigvd.gamification.services.EventProcessor;
 import ch.heigvd.gamification.services.UserRepository;
 import ch.heigvd.gamification.services.EventRepository;
+import ch.heigvd.gamification.services.RuleProcessor;
 import java.util.List;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Sekley Pascal <pascal.sekley@heig-vd.ch>
  */
 @RestController
+@RequestMapping("/events")
 public class EventsEndpoint implements EventsApi{
     
     private final EventRepository eventRepository;
@@ -39,17 +41,22 @@ public class EventsEndpoint implements EventsApi{
     private final UserRepository userRepository;
     private final HttpServletRequest request;
     private final EventProcessor eventProcessor;
+    private final RuleProcessor ruleProcessor;
     
     @Autowired
-    EventsEndpoint(HttpServletRequest request, EventRepository eventRepository, 
-                                               ApplicationRepository applicationRepository,
-                                               UserRepository userRepository,
-                                               EventProcessor eventProcessor){
+    EventsEndpoint(HttpServletRequest request, 
+                    EventRepository eventRepository, 
+                    ApplicationRepository applicationRepository,
+                    UserRepository userRepository,
+                    EventProcessor eventProcessor,
+                    RuleProcessor ruleProcessor){
+        
         this.request = request;
         this.eventRepository = eventRepository;
         this.applicationRepository = applicationRepository;
         this.userRepository = userRepository;
         this.eventProcessor = eventProcessor;
+        this.ruleProcessor = ruleProcessor;
     }
 
     @Override
@@ -69,6 +76,11 @@ public class EventsEndpoint implements EventsApi{
             newEvent.setApplication(targetApplication);
             userInDb = eventProcessor.processEvent(targetApplication, newEvent);
             newEvent.setUser(userInDb);
+            
+            //Process the event with the user
+            ruleProcessor.processRule(newEvent);
+            
+            
             eventRepository.save(newEvent);
 
             String location = request.getRequestURL() + "/";
@@ -76,51 +88,7 @@ public class EventsEndpoint implements EventsApi{
             headers.add("Location", location);
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         }
-           
-        
-        /*
-        Event newEvent;
-        User userInDb = null;
-        Long idToMatch = null;
-        User newUser = null;
-        Application applicationAimed = applicationRepository.findOne(event.getApplicationId());
 
-        // Cleck of a valid application
-        if (applicationAimed != null) {
-            // Check if the user exist
-            //User userRequesting = userRepository.findOne(event.getUserAppId());
-            List<User> listUsers = applicationAimed.getListUsers();
-            for (User user : listUsers) {
-                idToMatch = user.getUserIdApp();
-                if (Objects.equals(idToMatch, event.getUserAppId())) {
-                    userInDb = user;
-                    break;
-                }
-            }
-            // if the user is not in the database we add him
-            if (userInDb == null) {
-                // Save the user in the database
-                newUser = new User(applicationAimed);
-                newUser.setUserIdApp(idToMatch);
-                userRepository.save(newUser);
-            }
-            newEvent = new Event();
-            newEvent.setName(event.getName());
-            newEvent.setDescription(event.getDescription());
-            newEvent.setUserAppId(event.getUserAppId());
-            newEvent.setApplication(applicationAimed);
-            newEvent.setUser(newUser);
-            eventRepository.save(newEvent);
-
-            String location = request.getRequestURL() + "/";
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Location", location);
-            return new ResponseEntity<>(headers, HttpStatus.CREATED);
-
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-*/
     }
 
 }

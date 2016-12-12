@@ -730,14 +730,23 @@ definitions:
         
   RuleInputDTO:
     type: object
-    required: [name,description]
+    required: [ruleName, description, badge_id, pointScale_id, points]
     properties:
-      name:
+      ruleName:
         type: string
         description: Display rule's name.
       description:
         type: string
-        description: Description of the rule.        
+        description: Description of the rule.
+      badge_id:
+        type: integer
+        description: The id of the badge to be given to a user
+      pointScale_id:
+        type: integer
+        description: The id of the pointScale to be given to a user
+      points:
+        type: integer
+        description: score of point to get/lose by this rule
 
   LocationRule:
       type: string

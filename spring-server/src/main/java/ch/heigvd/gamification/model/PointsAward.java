@@ -7,11 +7,8 @@
 package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
@@ -29,7 +26,7 @@ public class PointsAward extends Award implements Serializable {
     
     public PointsAward() {}
     
-    public PointsAward(PointScale pointScale, String reason, Timestamp timestamp, User appUser){
+    public PointsAward(PointScale pointScale, String reason, Date timestamp, User appUser){
          super(reason, timestamp, appUser);
          this.pointScale = pointScale;
      }
@@ -41,6 +38,10 @@ public class PointsAward extends Award implements Serializable {
      
     public void setPointScale(PointScale pointScale) {
         this.pointScale = pointScale;
+    }
+    
+    public void setScore(long score){
+        this.score = score;
     }
 
 }

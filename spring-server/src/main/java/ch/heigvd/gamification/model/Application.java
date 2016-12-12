@@ -100,4 +100,8 @@ public class Application implements Serializable {
     public List<User> getListUsers(){
         return listUsers;
     }
+    
+    public List<Rule> getListRules(){
+        return listRules;
+    }
 }

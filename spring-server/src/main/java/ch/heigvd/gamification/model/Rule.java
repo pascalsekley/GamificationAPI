@@ -33,14 +33,23 @@ public class Rule implements Serializable {
     @ManyToOne
     private Application application;
     
+    private int points;
+    
+    //private String eventName;
+    
+    private String ruleName;
+
+        
     
     
     public Rule(){}
     
-    public Rule(Application application, Badge badge, PointScale pointScale){
+    public Rule(String ruleName, Application application, Badge badge, PointScale pointScale){
+        this.ruleName = ruleName;
         this.application = application;
         this.badge = badge;
         this.pointScale = pointScale;
+        this.points = 0;
     }
     
 
@@ -67,6 +76,22 @@ public class Rule implements Serializable {
     public void setPointScale(PointScale pointScale) {
         this.pointScale = pointScale;
     }
+    
+    public void setPoints(int points){
+        this.points = points;
+    }
+    
+    public int getPoints(){
+        return points;
+    }
+    
+    public void setRuleName(String ruleName){
+        this.ruleName = ruleName;
+    }
+    
+    public String getRuleName(){
+        return ruleName;
+    }
 
     public Badge getBadge() {
         return badge;
@@ -74,6 +99,14 @@ public class Rule implements Serializable {
 
     public void setBadge(Badge badge) {
         this.badge = badge;
-}
+    }
+    
+//    public void setCounterField(String counterField){
+//        this.counterField = counterField;
+//    }
+//    
+//    public String getCounterField(){
+//        return counterField;
+//    }
 
 }

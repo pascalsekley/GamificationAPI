@@ -13,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Sekley Pascal <pascal.sekley@heig-vd.ch>
  */
 public interface RuleRepository extends JpaRepository<Rule, Long>{
-    
+    //Rule findByName (String name);
 }

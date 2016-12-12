@@ -34,9 +34,11 @@ public User processEvent(Application targetApplication, Event event) {
         Long idToMatch = null;
         User userInDb = null;
         List<User> listUsers = targetApplication.getListUsers();
+       
         for (User user : listUsers) {
             idToMatch = user.getUserIdApp();
-            if (Objects.equals(idToMatch, event.getUserAppid())) {
+            if(idToMatch.equals(event.getUserAppid())){
+            //if (Objects.equals(idToMatch, event.getUserAppid())) {
                 userInDb = user;
                 break;
             }

@@ -29,8 +29,8 @@ public abstract class Award implements Serializable {
      
     private String reason;
     
-    @Basic(optional = false)
-    @Column(name = "LastTouched", insertable = false, updatable = false)
+    //@Basic(optional = false)
+    //@Column(name = "LastTouched", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp; 
     
