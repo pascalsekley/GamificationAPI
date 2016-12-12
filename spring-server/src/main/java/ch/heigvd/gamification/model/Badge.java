@@ -33,9 +33,7 @@ public class Badge implements Serializable {
     
     @ManyToOne
     private Application application;
-    
-//    @ManyToOne
-//    private Event event;
+
 
     public Badge(){}
 
@@ -66,9 +64,6 @@ public class Badge implements Serializable {
         return application;
     }
     
-//    public Event getEvent(){
-//        return event;
-//    }
 
     public void setName(String name) {
         this.name = name;
@@ -86,8 +81,5 @@ public class Badge implements Serializable {
         this.application = application;
     }
     
-//    public void setEvent(Event event){
-//        this.event = event;
-//    }
 
 }

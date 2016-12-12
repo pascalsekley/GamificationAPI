@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Sekley Pascal <pascal.sekley@heig-vd.ch>
  */
-public interface ruleRepository extends JpaRepository<Rule, Long>{
+public interface RuleRepository extends JpaRepository<Rule, Long>{
     
 }

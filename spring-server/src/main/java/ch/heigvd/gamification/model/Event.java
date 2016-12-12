@@ -102,6 +102,10 @@ public class Event implements Serializable{
         this.userAppId = userAppId;
     }
     
+    public Long getUserAppid(){
+        return userAppId;
+    }
+    
     public void setApplication(Application application){
         this.application = application;
     }

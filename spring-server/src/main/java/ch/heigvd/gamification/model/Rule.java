@@ -37,6 +37,12 @@ public class Rule implements Serializable {
     
     public Rule(){}
     
+    public Rule(Application application, Badge badge, PointScale pointScale){
+        this.application = application;
+        this.badge = badge;
+        this.pointScale = pointScale;
+    }
+    
 
     public Long getId() {
         return id;
@@ -45,5 +51,29 @@ public class Rule implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public PointScale getPointScale() {
+        return pointScale;
+    }
+
+    public void setPointScale(PointScale pointScale) {
+        this.pointScale = pointScale;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
+
+    public void setBadge(Badge badge) {
+        this.badge = badge;
+}
 
 }

@@ -10,6 +10,7 @@ ch\heigvd\gamification\api\ApiResponseMessage.class
 ch\heigvd\gamification\model\PointsAward.class
 ch\heigvd\gamification\api\dto\RuleOutputDTO.class
 ch\heigvd\gamification\api\dto\BadgeOutputDTO.class
+ch\heigvd\gamification\services\EventProcessor.class
 ch\heigvd\gamification\services\EventRepository.class
 ch\heigvd\gamification\services\ruleRepository.class
 ch\heigvd\gamification\api\ApiOriginFilter.class

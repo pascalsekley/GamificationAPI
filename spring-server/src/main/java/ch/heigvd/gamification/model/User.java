@@ -30,6 +30,7 @@ public class User implements Serializable {
     
     private Long userIdApp;
     private Long appId;
+    private int numberOfEvents;
     
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Award> listAwards; 
@@ -44,6 +45,7 @@ public class User implements Serializable {
     public User(){}
     
     public User(Application application){
+        this.numberOfEvents = 0;
         this.application = application;
         listAwards = new ArrayList<>();
         listEvents = new ArrayList<>();
@@ -68,6 +70,14 @@ public class User implements Serializable {
     
     public Long getAppId(){
         return appId;
+    }
+    
+    public int getNumberOfEvents(){
+        return numberOfEvents;
+    }
+    
+    public void setNumberOfEvents(int number){
+        this.numberOfEvents = number;
     }
 
 }
