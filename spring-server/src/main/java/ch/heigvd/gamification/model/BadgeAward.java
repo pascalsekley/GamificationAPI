@@ -3,6 +3,7 @@ package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
  */
 
 @Entity
+@DiscriminatorValue(value = "badgeAward")
 public class BadgeAward extends Award implements Serializable{
 
     
@@ -36,5 +38,4 @@ public class BadgeAward extends Award implements Serializable{
         this.badge = badge;
     }
     
-     // new Timestamp(System.currentTimeMillis());
 }

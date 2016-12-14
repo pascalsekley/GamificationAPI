@@ -715,7 +715,7 @@ definitions:
   
   RuleOutputDTO:
     type: object
-    required: [rule_id, name, description]
+    required: [rule_id, name, description, points]
     properties:
       rule_id:
         type: string
@@ -726,11 +726,15 @@ definitions:
       description:
         type: string
         description: Description of rule.
+      points:
+        type: integer
+        description: Number of points to get or lose.
+      
 
         
   RuleInputDTO:
     type: object
-    required: [ruleName, description, badge_id, pointScale_id, points]
+    required: [ruleName, description, badge_id, pointScale_id, points, eventType]
     properties:
       ruleName:
         type: string
@@ -747,6 +751,9 @@ definitions:
       points:
         type: integer
         description: score of point to get/lose by this rule
+      eventType:
+        type: string
+        description: The type of the up coming event
 
   LocationRule:
       type: string

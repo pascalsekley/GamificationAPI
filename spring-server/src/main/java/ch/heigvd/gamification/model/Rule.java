@@ -35,9 +35,11 @@ public class Rule implements Serializable {
     
     private int points;
     
-    //private String eventName;
+    private String ruleDescription;
     
     private String ruleName;
+    
+    private String eventType;
 
         
     
@@ -101,12 +103,20 @@ public class Rule implements Serializable {
         this.badge = badge;
     }
     
-//    public void setCounterField(String counterField){
-//        this.counterField = counterField;
-//    }
-//    
-//    public String getCounterField(){
-//        return counterField;
-//    }
-
+    public void setRuleDescription(String ruleDescription){
+        this.ruleDescription = ruleDescription;
+    }
+    
+    public String getRuleDescription(){
+        return ruleDescription;
+    }
+    
+    public String getEvenType(){
+        return eventType;
+    }
+    
+    public void setEventType(String eventType){
+        this.eventType = eventType;
+    }
+    
 }

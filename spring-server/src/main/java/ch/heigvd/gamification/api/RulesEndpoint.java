@@ -17,12 +17,14 @@ import ch.heigvd.gamification.services.ApplicationRepository;
 import ch.heigvd.gamification.services.BadgeRepository;
 import ch.heigvd.gamification.services.PointScaleRepository;
 import ch.heigvd.gamification.services.RuleRepository;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -54,16 +56,26 @@ public class RulesEndpoint implements RulesApi{
             this.badgeRepository = badgesRepository;
             this.pointScaleRepository = pointScaleRepository;
             this.request = request;
-            
 }
-    
-    
     
 
     @Override
     public ResponseEntity<List<RuleOutputDTO>> rulesGet() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Rule> rules = this.ruleRepository.findAll();
+        if(rules.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<RuleOutputDTO> rulesDTO = new ArrayList<>();
+        for (int i=0; i<rules.size(); i++){
+            rulesDTO.add(i, toDTO(rules.get(i)));
+        }
+        return new ResponseEntity<>(rulesDTO, HttpStatus.OK);
     }
+    
+    
+    
+    
 
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -76,17 +88,49 @@ public class RulesEndpoint implements RulesApi{
         ruleRepository.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
+    
+    
 
     @Override
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RuleOutputDTO> rulesIdGet(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Rule rule = ruleRepository.findOne(id);
+        if(rule == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        RuleOutputDTO ruleDTO = toDTO(rule);
+        
+        return new ResponseEntity<>(ruleDTO, HttpStatus.OK);
     }
+    
+    
+    
 
     @Override
-    public ResponseEntity<Void> rulesIdPut(Long id, RuleInputDTO rule) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> rulesIdPut(@PathParam("id") Long id, @RequestBody RuleInputDTO rule) {
+        
+        
+        if (rule.getRuleName() == null || rule.getDescription() == null) {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        
+        Rule currentRule = ruleRepository.findOne(id);
+        if(currentRule == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        currentRule.setRuleName(rule.getRuleName());
+        currentRule.setRuleDescription(rule.getDescription());
+        currentRule.setPoints(rule.getPoints());        
+        ruleRepository.save(currentRule);
+        return new ResponseEntity<>(HttpStatus.OK);        
     }
 
+    
+    
+    
+    
     @Override
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<LocationRule> rulesPost(@RequestBody RuleInputDTO rule, @RequestHeader Long token) {
@@ -96,13 +140,15 @@ public class RulesEndpoint implements RulesApi{
         Badge targetBadge = badgeRepository.findOne(rule.getBadgeId());
         PointScale targetPointScale = pointScaleRepository.findOne(rule.getPointScaleId());
         
-        // If that rule exist
+        // TO DO: Check If that rule exist
         //if (ruleRepository.findByName(rule.getRuleName()) != null) {
             if (targetApplication != null) {
                 if (targetBadge != null || targetPointScale != null) {
 
                     Rule newRule = new Rule(rule.getRuleName(), targetApplication, targetBadge, targetPointScale);
+                    newRule.setRuleDescription(rule.getDescription());
                     newRule.setPoints(rule.getPoints());
+                    newRule.setEventType(rule.getEventType());
                     ruleRepository.save(newRule);
                     
                     String location = request.getRequestURL() + "/" + newRule.getId();
@@ -116,6 +162,28 @@ public class RulesEndpoint implements RulesApi{
 
         return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
 
+    }
+    
+    
+    public RuleOutputDTO toDTO(Rule rule){
+        RuleOutputDTO dto = new RuleOutputDTO();
+        dto.setRuleId(String.valueOf(rule.getId()));
+        dto.setName(rule.getRuleName());
+        dto.setDescription(rule.getRuleDescription());
+        dto.setPoints(rule.getPoints());
+        return dto;
+    }
+    
+    public Rule fromDTO(RuleInputDTO ruleInputDTO){
+        Rule newRule = new Rule();
+        newRule.setRuleName(ruleInputDTO.getRuleName());
+        newRule.setRuleDescription(ruleInputDTO.getDescription());
+        newRule.setPoints(ruleInputDTO.getPoints());
+        
+        // /!\ NOT SURE IF IT'S NEEDED !!!
+        newRule.setBadge(badgeRepository.findOne(ruleInputDTO.getBadgeId()));
+        newRule.setPointScale(pointScaleRepository.findOne(ruleInputDTO.getPointScaleId()));
+        return newRule;
     }
 
 }

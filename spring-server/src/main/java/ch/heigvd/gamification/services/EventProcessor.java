@@ -36,18 +36,17 @@ public User processEvent(Application targetApplication, Event event) {
         List<User> listUsers = targetApplication.getListUsers();
        
         for (User user : listUsers) {
-            idToMatch = user.getUserIdApp();
-            if(idToMatch.equals(event.getUserAppid())){
-            //if (Objects.equals(idToMatch, event.getUserAppid())) {
+            idToMatch = user.getUserIdApp();//user.getId()
+            if(Objects.equals(idToMatch, event.getUserAppid())){
                 userInDb = user;
                 break;
             }
         }
         // if the user is not in the database we add him
         if (userInDb == null) {
-            // Save the user in the database
+            // Create and save the user in the database
             userInDb = new User(targetApplication);
-            userInDb.setUserIdApp(idToMatch);
+            userInDb.setUserIdApp(event.getUserAppid()); //idToMatch
             userInDb.setNumberOfEvents(1); // Because it's a new user
             userRepository.save(userInDb);
         }

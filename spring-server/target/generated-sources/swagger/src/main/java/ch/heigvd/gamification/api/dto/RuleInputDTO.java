@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RuleInputDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-12T23:59:39.533+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T14:38:31.463+01:00")
 
 public class RuleInputDTO   {
   private String ruleName = null;
@@ -24,6 +24,8 @@ public class RuleInputDTO   {
   private Integer pointScaleId = null;
 
   private Integer points = null;
+
+  private String eventType = null;
 
   public RuleInputDTO ruleName(String ruleName) {
     this.ruleName = ruleName;
@@ -115,6 +117,24 @@ public class RuleInputDTO   {
     this.points = points;
   }
 
+  public RuleInputDTO eventType(String eventType) {
+    this.eventType = eventType;
+    return this;
+  }
+
+   /**
+   * The type of the up coming event
+   * @return eventType
+  **/
+  @ApiModelProperty(required = true, value = "The type of the up coming event")
+  public String getEventType() {
+    return eventType;
+  }
+
+  public void setEventType(String eventType) {
+    this.eventType = eventType;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -129,12 +149,13 @@ public class RuleInputDTO   {
         Objects.equals(this.description, ruleInputDTO.description) &&
         Objects.equals(this.badgeId, ruleInputDTO.badgeId) &&
         Objects.equals(this.pointScaleId, ruleInputDTO.pointScaleId) &&
-        Objects.equals(this.points, ruleInputDTO.points);
+        Objects.equals(this.points, ruleInputDTO.points) &&
+        Objects.equals(this.eventType, ruleInputDTO.eventType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ruleName, description, badgeId, pointScaleId, points);
+    return Objects.hash(ruleName, description, badgeId, pointScaleId, points, eventType);
   }
 
   @Override
@@ -147,6 +168,7 @@ public class RuleInputDTO   {
     sb.append("    badgeId: ").append(toIndentedString(badgeId)).append("\n");
     sb.append("    pointScaleId: ").append(toIndentedString(pointScaleId)).append("\n");
     sb.append("    points: ").append(toIndentedString(points)).append("\n");
+    sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

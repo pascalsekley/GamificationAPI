@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RuleOutputDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-12T23:59:39.533+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T14:38:31.463+01:00")
 
 public class RuleOutputDTO   {
   private String ruleId = null;
@@ -20,6 +20,8 @@ public class RuleOutputDTO   {
   private String name = null;
 
   private String description = null;
+
+  private Integer points = null;
 
   public RuleOutputDTO ruleId(String ruleId) {
     this.ruleId = ruleId;
@@ -75,6 +77,24 @@ public class RuleOutputDTO   {
     this.description = description;
   }
 
+  public RuleOutputDTO points(Integer points) {
+    this.points = points;
+    return this;
+  }
+
+   /**
+   * Number of points to get or lose.
+   * @return points
+  **/
+  @ApiModelProperty(required = true, value = "Number of points to get or lose.")
+  public Integer getPoints() {
+    return points;
+  }
+
+  public void setPoints(Integer points) {
+    this.points = points;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -87,12 +107,13 @@ public class RuleOutputDTO   {
     RuleOutputDTO ruleOutputDTO = (RuleOutputDTO) o;
     return Objects.equals(this.ruleId, ruleOutputDTO.ruleId) &&
         Objects.equals(this.name, ruleOutputDTO.name) &&
-        Objects.equals(this.description, ruleOutputDTO.description);
+        Objects.equals(this.description, ruleOutputDTO.description) &&
+        Objects.equals(this.points, ruleOutputDTO.points);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ruleId, name, description);
+    return Objects.hash(ruleId, name, description, points);
   }
 
   @Override
@@ -103,6 +124,7 @@ public class RuleOutputDTO   {
     sb.append("    ruleId: ").append(toIndentedString(ruleId)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    points: ").append(toIndentedString(points)).append("\n");
     sb.append("}");
     return sb.toString();
   }

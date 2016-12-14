@@ -6,6 +6,7 @@
 package ch.heigvd.gamification.services;
 
 import ch.heigvd.gamification.model.Rule;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,4 +15,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface RuleRepository extends JpaRepository<Rule, Long>{
     //Rule findByName (String name);
+    List<Rule> findByEventTypeAndApplicationId(String eventType, Long applicationId);
 }

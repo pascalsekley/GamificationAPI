@@ -8,6 +8,7 @@ package ch.heigvd.gamification.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
  * @author Sekley Pascal <pascal.sekley@heig-vd.ch>
  */
 @Entity
+@DiscriminatorValue(value = "pointAward")
 public class PointsAward extends Award implements Serializable {
     
     private long score;
@@ -42,6 +44,10 @@ public class PointsAward extends Award implements Serializable {
     
     public void setScore(long score){
         this.score = score;
+    }
+    
+    public long getScore(){
+        return score;
     }
 
 }

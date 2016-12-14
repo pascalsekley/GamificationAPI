@@ -79,5 +79,14 @@ public class User implements Serializable {
     public void setNumberOfEvents(int number){
         this.numberOfEvents = number;
     }
+    
+    public void setApplication(Application application){
+        this.application = application;
+    }
+    
+    public Application getApplication(){
+        return application;
+    }
+    
 
 }

@@ -16,8 +16,6 @@ import ch.heigvd.gamification.services.EventProcessor;
 import ch.heigvd.gamification.services.UserRepository;
 import ch.heigvd.gamification.services.EventRepository;
 import ch.heigvd.gamification.services.RuleProcessor;
-import java.util.List;
-import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -83,7 +81,7 @@ public class EventsEndpoint implements EventsApi{
             
             eventRepository.save(newEvent);
 
-            String location = request.getRequestURL() + "/";
+            String location = request.getRequestURL() + "/" + newEvent.getId();
             HttpHeaders headers = new HttpHeaders();
             headers.add("Location", location);
             return new ResponseEntity<>(headers, HttpStatus.CREATED);

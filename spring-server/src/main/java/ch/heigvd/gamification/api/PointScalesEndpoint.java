@@ -106,7 +106,7 @@ public class PointScalesEndpoint implements PointScalesApi{
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<LocationPointScale> pointScalesPost(PointScaleInputDTO pointScale) {
+    public ResponseEntity<LocationPointScale> pointScalesPost(@RequestBody PointScaleInputDTO pointScale) {
         
         if(pointScale.getName()==null || pointScale.getDescription()==null || pointScale.getCoefficient()==null){
            
@@ -135,32 +135,6 @@ public class PointScalesEndpoint implements PointScalesApi{
    
    public PointScale fromDTO(PointScaleInputDTO badgeInputDTO){
         return new PointScale(badgeInputDTO.getName(), badgeInputDTO.getCoefficient(), badgeInputDTO.getDescription());
-    }
-
-//    @Override
-//    public ResponseEntity<List<PointScaleOutputDTO>> pointScalesGet() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public ResponseEntity<Void> pointScalesIdDelete(String id) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public ResponseEntity<PointScaleOutputDTO> pointScalesIdGet(String id) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public ResponseEntity<Void> pointScalesIdPut(String id, PointScaleInputDTO pointScale) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public ResponseEntity<LocationPointScale> pointScalesPost(PointScaleInputDTO badge) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-    
+    } 
     
 }

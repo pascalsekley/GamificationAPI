@@ -30,17 +30,17 @@ public class RuleProcessor {
     PointScaleRepository pointScaleRepository;
     BadgeRepository badgeRepository;
     AwardRepository awardRepository;
-    
-    
-    
-    
+    RuleRepository ruleRepository;
+
     
     public RuleProcessor(ApplicationRepository applicationRepository, PointScaleRepository pointScaleRepository,
-                         BadgeRepository badgeRepository, AwardRepository awardRepository){
+                         BadgeRepository badgeRepository, AwardRepository awardRepository,
+                         RuleRepository ruleRepository){
         this.applicationRepository = applicationRepository;
         this.pointScaleRepository = pointScaleRepository;
         this.badgeRepository = badgeRepository;
         this.awardRepository = awardRepository;
+        this.ruleRepository = ruleRepository;
         
     }
     
@@ -50,43 +50,46 @@ public class RuleProcessor {
     public void processRule(Event event) {
         
         Application targetApplication = event.getApplication();
-        String eventName = event.getName();
+        String eventType= event.getName();
         Long userId = event.getUserAppid();
         
-        List<Rule> rules = targetApplication.getListRules();
+        //List<Rule> rules = targetApplication.getListRules();
+        List<Rule> rules = ruleRepository.findByEventTypeAndApplicationId(eventType, event.getApplication().getId());
         PointScale pointScale;
         Badge badge;
-        if (rules.size() > 0) {
+        
+        
+        if(rules.size() > 0){
             for (Rule rule : rules) {
-                switch (event.getName()) {
-                    case "GivePoints":
-                        pointScale = rule.getPointScale();
-
-                        //if(pointScale != null && badge != null ){
-                        PointsAward pointAward = new PointsAward(rule.getPointScale(), "Got some points", new Date(), event.getUser());
-                        pointAward.setScore(rule.getPoints());
-                        awardRepository.save(pointAward);
-                        break;
-                    case "GiveBadge":
-
-                        badge = rule.getBadge();
-                        BadgeAward badgeAward = new BadgeAward(rule.getBadge(), "Got a badge", new Date(), event.getUser());
-                        awardRepository.save(badgeAward);
-                        break;
-                        
-                    default:
-                        throw new UnsupportedOperationException("No event rules for this request.");
-//                    }
-//                    else{
-//                        throw new UnsupportedOperationException("No PointScale or Badge available for this rule.");
-//                    }
+                pointScale = rule.getPointScale();
+                badge = rule.getBadge();
+                
+                if(pointScale != null){
+                    PointsAward userPointAward = awardRepository.findByUserAndPointScale(event.getUser(), pointScale);
+                    if(userPointAward != null){
+                        userPointAward.setScore(userPointAward.getScore() + rule.getPoints());
+                    }
+                    else{
+                        userPointAward = new PointsAward(rule.getPointScale(), "Got some points", new Date(), event.getUser());
+                        userPointAward.setScore(rule.getPoints());
+                    }
+                    awardRepository.save(userPointAward);
+                }
+                
+                if(badge != null){
+                    BadgeAward userBadgeAward = awardRepository.findByUserAndBadge(event.getUser(), badge);
+                    if(userBadgeAward == null){
+                        userBadgeAward = new BadgeAward(rule.getBadge(), "Got a badge", new Date(), event.getUser());
+                        awardRepository.save(userBadgeAward);
+                    }
                 }
             }
-        } else {
+                        
+        }
+        else{
             throw new UnsupportedOperationException("No rules available for this: Create some rules before.");
         }
         
-
     }
 
 }
