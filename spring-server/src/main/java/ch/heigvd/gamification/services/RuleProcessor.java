@@ -58,12 +58,13 @@ public class RuleProcessor {
         PointScale pointScale;
         Badge badge;
         
-        
+        // We check if we have at least some rule or not
         if(rules.size() > 0){
             for (Rule rule : rules) {
                 pointScale = rule.getPointScale();
                 badge = rule.getBadge();
                 
+                // If it's some points to be given to a user
                 if(pointScale != null){
                     PointsAward userPointAward = awardRepository.findByUserAndPointScale(event.getUser(), pointScale);
                     if(userPointAward != null){
@@ -76,8 +77,11 @@ public class RuleProcessor {
                     awardRepository.save(userPointAward);
                 }
                 
+                // If it's a badge to be given to a user
                 if(badge != null){
                     BadgeAward userBadgeAward = awardRepository.findByUserAndBadge(event.getUser(), badge);
+                    
+                    // If the user hasn't got any badge yet, he gets one, if he has he gets nothing
                     if(userBadgeAward == null){
                         userBadgeAward = new BadgeAward(rule.getBadge(), "Got a badge", new Date(), event.getUser());
                         awardRepository.save(userBadgeAward);
@@ -86,6 +90,7 @@ public class RuleProcessor {
             }
                         
         }
+        // In case we have no rule for atarget application
         else{
             throw new UnsupportedOperationException("No rules available for this: Create some rules before.");
         }

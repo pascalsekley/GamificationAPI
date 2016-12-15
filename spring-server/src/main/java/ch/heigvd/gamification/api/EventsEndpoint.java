@@ -78,7 +78,7 @@ public class EventsEndpoint implements EventsApi{
             //Process the event with the user
             ruleProcessor.processRule(newEvent);
             
-            
+            // Save the new event in the database
             eventRepository.save(newEvent);
 
             String location = request.getRequestURL() + "/" + newEvent.getId();

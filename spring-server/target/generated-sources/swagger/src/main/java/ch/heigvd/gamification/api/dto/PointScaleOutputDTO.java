@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * PointScaleOutputDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T14:38:31.463+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-15T18:02:48.510+01:00")
 
 public class PointScaleOutputDTO   {
   private String pointScaleId = null;
