@@ -1,4 +1,15 @@
-
+/*
+ -----------------------------------------------------------------------------------
+ Project 	 : Gamification API
+ File     	 : PointScale.java
+ Author(s)       : Henneberger Sébastien, Pascal Sekley, Rodrigue Tchuensu, Franchini Fabien  
+ Date            : Start: 14.11.16 - End:  
+ Purpose         : The goal of this class is to define a pointScale and what its
+                   caracteristics are.
+ remark(s)       : n/a
+ Compiler        : jdk 1.8.0_101
+ -----------------------------------------------------------------------------------
+ */
 
 package ch.heigvd.gamification.model;
 
@@ -9,11 +20,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
  * 
- * @author Sekley Pascal <pascal.sekley@heig-vd.ch>
+ * @author Henneberger Sébastien, Pascal Sekley, Rodrigue Tchuensu, Franchini Fabien
+ * @version 1.0
+ * @since 2016-11-14
  */
 @Entity
 public class PointScale implements Serializable {
@@ -25,6 +39,9 @@ public class PointScale implements Serializable {
     
     @OneToMany(mappedBy = "pointScale", cascade = CascadeType.ALL)
     private List<Rule> listRules;
+    
+    @ManyToOne
+    private Application application;
     
     private String name;
     //private String image;
@@ -82,6 +99,14 @@ public class PointScale implements Serializable {
     
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public Application getApplication(){
+        return application;
+    }
+    
+    public void setApplication(Application application){
+        this.application = application;
     }
 
 }

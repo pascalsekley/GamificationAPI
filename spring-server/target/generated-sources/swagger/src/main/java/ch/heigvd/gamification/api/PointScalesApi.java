@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-15T18:02:48.510+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-19T20:02:53.332+01:00")
 
 @Api(value = "pointScales", description = "the pointScales API")
 public interface PointScalesApi {
@@ -92,6 +92,10 @@ public interface PointScalesApi {
     ResponseEntity<LocationPointScale> pointScalesPost(
 
 @ApiParam(value = "PointScale object that needs to be added to the database." ,required=true ) @RequestBody PointScaleInputDTO badge
+
+,
+@ApiParam(value = "The application for which the badge belong" ,required=true ) @RequestHeader(value="applicationId", required=true) Long applicationId
+
 
 );
 

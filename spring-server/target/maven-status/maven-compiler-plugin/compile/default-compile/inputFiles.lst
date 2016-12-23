@@ -1,3 +1,4 @@
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\RegistrationInputDTO.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\model\User.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\PointScaleOutputDTO.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\model\Event.java
@@ -5,20 +6,28 @@ C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\EventInputDTO.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\api\ApiResponseMessage.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\RuleOutputDTO.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\services\TokenKeyTools.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\PointScalesApi.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\model\BadgeAward.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\model\Registration.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\api\PointScalesEndpoint.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\services\PointScaleRepository.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\ApplicationInputDTO.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\model\Application.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\LocationRegistration.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\model\Badge.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\services\RegistrationRepository.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\BadgeInputDTO.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\api\AuthenticationsEndpoint.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\services\RuleProcessor.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\AuthenticationsApi.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\RuleInputDTO.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\api\RulesEndpoint.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\api\BadgesEndpoint.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\api\RegistrationsEndpoint.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\LocationBadge.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\config\SwaggerDocumentationConfig.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\RegistrationOutputDTO.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\Swagger2SpringBoot.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\services\BadgeRepository.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\api\ApiException.java
@@ -41,6 +50,7 @@ C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\model\Rule.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\services\UserRepository.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\PointScaleInputDTO.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\RegistrationsApi.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\BadgeOutputDTO.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\LocationApplication.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\model\PointsAward.java
@@ -50,3 +60,4 @@ C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\RulesApi.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\src\main\java\ch\heigvd\gamification\config\HomeController.java
 C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\BadgesApi.java
+C:\Users\Pascal\Teaching-HEIGVD-AMT\Gamification\HEIGVD-AMT-Gamification\spring-server\target\generated-sources\swagger\src\main\java\ch\heigvd\gamification\api\dto\AuthenticationInputDTO.java

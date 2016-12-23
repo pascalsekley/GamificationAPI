@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-15T18:02:48.510+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-19T20:02:53.332+01:00")
 
 @Api(value = "rules", description = "the rules API")
 public interface RulesApi {
@@ -94,7 +94,7 @@ public interface RulesApi {
 @ApiParam(value = "Rule object that needs to be added to the database." ,required=true ) @RequestBody RuleInputDTO rule
 
 ,
-@ApiParam(value = "The application for which the rule belongs" ,required=true ) @RequestHeader(value="token", required=true) Long token
+@ApiParam(value = "The application for which the rule belongs" ,required=true ) @RequestHeader(value="applicationId", required=true) Long applicationId
 
 
 );

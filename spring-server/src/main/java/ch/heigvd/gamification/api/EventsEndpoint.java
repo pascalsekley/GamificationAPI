@@ -1,7 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ -----------------------------------------------------------------------------------
+ Project 	 : Gamification API
+ File     	 : EventEndPoint.java
+ Author(s)       : Henneberger Sébastien, Pascal Sekley, Rodrigue Tchuensu, Franchini Fabien  
+ Date            : Start: 14.11.16 - End:  
+ Purpose         : The goal of this class is to define a REST API on an event. The POST
+                   is only implemented.
+ remark(s)       : n/a
+ Compiler        : jdk 1.8.0_101
+ -----------------------------------------------------------------------------------
  */
 
 package ch.heigvd.gamification.api;
@@ -28,7 +35,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 
- * @author Sekley Pascal <pascal.sekley@heig-vd.ch>
+ * @author Henneberger Sébastien, Pascal Sekley, Rodrigue Tchuensu, Franchini Fabien
+ * @version 1.0
+ * @since 2016-11-14
  */
 @RestController
 @RequestMapping("/events")
@@ -60,6 +69,31 @@ public class EventsEndpoint implements EventsApi{
     @Override
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<LocationEvent> eventsPost(@RequestBody EventInputDTO event) {
+        
+       // Test if the request isn't valid (http error 422 unprocessable entity)
+          boolean httpErrorUnprocessableEntity = false;
+        
+        
+      // Check if name, description is null
+      if (event.getName() == null || event.getDescription() == null) {
+         httpErrorUnprocessableEntity = true;
+      }
+
+      // Check if name, description is empty
+      else if (event.getName().trim().isEmpty() || event.getDescription().trim().isEmpty()) {
+         httpErrorUnprocessableEntity = true;
+      }
+
+      // Check if name length > 80 OR if description length > 255
+      else if (event.getName().length() > 80 || event.getDescription().length() > 255) {
+         httpErrorUnprocessableEntity = true;
+      }
+
+      if (httpErrorUnprocessableEntity) {
+         return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+      }
+        
+
         Application targetApplication = applicationRepository.findOne(event.getApplicationId());
         Long userAppId = event.getUserAppId();
         if (targetApplication == null || userAppId == null) {
@@ -80,10 +114,15 @@ public class EventsEndpoint implements EventsApi{
             
             // Save the new event in the database
             eventRepository.save(newEvent);
-
-            String location = request.getRequestURL() + "/" + newEvent.getId();
+            Long newId = newEvent.getId();
+            
+            StringBuffer location = request.getRequestURL();
+            if (!location.toString().endsWith("/")) {
+                location.append("/");
+            }
+            location.append(newId.toString());
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Location", location);
+            headers.add("Location", location.toString());
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
         }
 

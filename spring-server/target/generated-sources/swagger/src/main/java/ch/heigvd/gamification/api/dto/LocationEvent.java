@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * LocationEvent
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-15T18:02:48.510+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-19T20:02:53.332+01:00")
 
 public class LocationEvent   {
   private String locationEvent = null;
